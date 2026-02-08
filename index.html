@@ -114,9 +114,9 @@
 
 <body>
 
-  <audio id="music" loop>
-    <source src="masakali.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="music" preload="auto">
+  <source src="./masakali.mp3" type="audio/mpeg">
+</audio>
 
   <h1>Will you be my valentine yoki? 💖🔫</h1>
 
@@ -150,9 +150,17 @@
     });
 
     yesButton.addEventListener("click", () => {
-      music.play();
-      letter.style.display = "block";
+  letter.style.display = "block";
+
+  music.currentTime = 0;
+  const playPromise = music.play();
+
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      alert("Tap the screen once more to start the music 💖");
     });
+  }
+});
 
     function closeLetter() {
       letter.style.display = "none";
